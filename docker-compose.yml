@@ -1,12 +1,13 @@
 version: '3.6'
 
 services:
-  sw_mysql:
-    build: rindevich/mysql-8:latest
+  shopware_mysql:
+    container_name: sw-mysql
+    image: rindevich/mysql-8:latest
     volumes:
-      - ./db:/home/db
+      - ./db:/home/db:cached
     ports:
-      - "3306:3306"
+      - "3366:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: app
@@ -19,31 +20,37 @@ services:
     networks:
       - internal
 
-  sw_server:
-    build: rindevich/php7.2:latest
+  shopware_server:
+    container_name: sw-server
+    image: rindevich/php7.2:latest
     volumes:
-      - shopware:/var/www/shopware/
-      - containers/php7/server-apache2-vhosts.conf:/etc/apache2/sites-enabled/000-default.conf
-      - type: tmpfs
-        target: /shopware/vendor
+      - ./shopware:/var/www/shopware:cached
+      - ./containers/php7/server-apache2-vhosts.conf:/etc/apache2/sites-enabled/000-default.conf
     links:
-      - sw_mysql:mysql
-      - sw_memcd:memcache
+      - shopware_mysql:mysql
+      - shopware_redis:redis
+      - shopware_smtp:smtp
     environment:
       TERM: xterm
+      PHP_XDEBUG_ENABLED: 1
     ports:
       - "80:80"
     networks:
       - internal
 
-  sw_memcd:
-    image: bitnami/memcached:latest
+  shopware_redis:
+    container_name: sw-redis
+    image: webhippie/redis:latest
     environment:
       MEMCACHED_CACHE_SIZE: 2024
     ports:
-      - 11211:11211
+      - 6379:6379
     networks:
       - internal
+
+  shopware_smtp:
+    container_name: sw-smtp
+    image: mailhog/mailhog
 
 networks:
   internal:
