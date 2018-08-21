@@ -4,7 +4,6 @@ RUN apt-get update \
   && apt-get upgrade -y \
   && apt-get install --no-install-recommends -y \
      mc \
-     htop \
-     netcat-openbsd0
+     htop
 
 WORKDIR /var/lib/mysql

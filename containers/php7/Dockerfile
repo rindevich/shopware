@@ -79,8 +79,6 @@ ADD server-apache2-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
 
 # Setup Apache
 RUN ln -sf /etc/apache2/mods-available/proxy_html.conf /etc/apache2/mods-enabled/proxy_html.conf \
-    && ln -sf /etc/apache2/mods-available/proxy_html.load /etc/apache2/mods-enabled/proxy_html.load \
-    && ln -sf /etc/apache2/mods-available/proxy_http.load /etc/apache2/mods-enabled/proxy_http.load \
     && ln -sf /etc/apache2/mods-available/xml2enc.load /etc/apache2/mods-enabled/xml2enc.load \
     && service apache2 restart
 
