@@ -1,0 +1,51 @@
+version: '3.6'
+
+services:
+  sw_mysql:
+    build: rindevich/mysql-8:latest
+    volumes:
+      - ./db:/home/db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: app
+      MYSQL_PASSWORD: app
+      MYSQL_DATABASE: shopware
+      MYSQL_INNODB_BUFFER_POOL_SIZE: "3G"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_GENERAL_LOG: 0
+      MYSQL_QUERY_CACHE_SIZE: 64M
+    networks:
+      - internal
+
+  sw_server:
+    build: rindevich/php7.2:latest
+    volumes:
+      - ./shopware:/var/www/shopware/
+      - type: tmpfs
+        target: /shopware/vendor
+    links:
+      - sw_mysql:mysql
+      - sw_memcd:memcache
+    environment:
+      TERM: xterm
+    ports:
+      - "80:80"
+    networks:
+      - internal
+
+  sw_memcd:
+    image: bitnami/memcached:latest
+    environment:
+      MEMCACHED_CACHE_SIZE: 2024
+    ports:
+      - 11211:11211
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver_opts:
+      internal: "true"
+      driver: bridge
