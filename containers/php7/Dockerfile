@@ -88,7 +88,6 @@ RUN echo "alias ll='ls -ahl'" >> /etc/bash.bashrc
 
 WORKDIR /var/www/shopware
 
-ENV COMPOSER_CACHE_DIR=/.composer/cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/usr/local/bin/ --filename=composer
