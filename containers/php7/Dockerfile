@@ -1,5 +1,7 @@
 FROM php:7.2-apache
 
+MAINTAINER Rindevich version: 0.1
+
 RUN apt-get update -qq && apt-get install -y -qq apt-utils && mkdir -p /usr/share/man/man1 \
     && apt-get update -qq && apt-get install -y -qq openjdk-8-jre-headless \
     && apt-get update -qq && apt-get install -y -qq  openjdk-8-jdk && dpkg --configure -a
@@ -75,25 +77,19 @@ RUN pecl install redis \
 
 RUN npm install -g grunt-cli bower grunt jasmine
 
-ADD server-apache2-vhosts.conf /etc/apache2/sites-enabled/000-default.conf
-
-# Setup Apache
-RUN ln -sf /etc/apache2/mods-available/proxy_html.conf /etc/apache2/mods-enabled/proxy_html.conf \
-    && ln -sf /etc/apache2/mods-available/xml2enc.load /etc/apache2/mods-enabled/xml2enc.load \
-    && service apache2 restart
-
-ADD php-config.ini /usr/local/etc/php/conf.d/php-config.ini
-ADD timezone-berlin.ini /usr/local/etc/php/conf.d/timezone.ini
-ADD xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+RUN echo "date.timezone=Europe/Berlin" >> /usr/local/etc/php/conf.d/timezone.ini
 
 RUN a2enmod rewrite
+
+# Restart Apache
+RUN service apache2 restart
 
 RUN echo "alias ll='ls -ahl'" >> /etc/bash.bashrc
 
 WORKDIR /var/www/shopware
 
 ENV COMPOSER_CACHE_DIR=/.composer/cache
-
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/usr/local/bin/ --filename=composer
 RUN php -r "unlink('composer-setup.php');"

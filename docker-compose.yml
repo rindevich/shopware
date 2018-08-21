@@ -22,7 +22,8 @@ services:
   sw_server:
     build: rindevich/php7.2:latest
     volumes:
-      - ./shopware:/var/www/shopware/
+      - shopware:/var/www/shopware/
+      - containers/php7/server-apache2-vhosts.conf:/etc/apache2/sites-enabled/000-default.conf
       - type: tmpfs
         target: /shopware/vendor
     links:
