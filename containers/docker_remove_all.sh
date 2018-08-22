@@ -35,7 +35,7 @@ echo ""
 echo "==> Removing Docker.qcow2 file"
 rm ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/Docker.qcow2
 echo "==> Removing Docker.raw file"
-rm ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/Docker.raw
+rm ~/Library/Containers/com.docker.docker/Data/vms/0/Docker.raw
 
 echo "==> Launching Docker"
 open -a Docker

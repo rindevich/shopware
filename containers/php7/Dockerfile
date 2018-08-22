@@ -78,12 +78,12 @@ RUN pecl install redis \
 RUN npm install -g grunt-cli bower grunt jasmine
 
 RUN echo "date.timezone=Europe/Berlin" >> /usr/local/etc/php/conf.d/timezone.ini
-RUN echo "xdebug.remote_enable=1 \
-          xdebug.remote_handler=dbgp \
-          xdebug.remote_host=172.18.0.1 \
-          xdebug.remote_port=9000 \
-          xdebug.remote_autostart=0 \
-          xdebug.remote_connect_back=1 \
+RUN echo "xdebug.remote_enable=1\n" \
+          xdebug.remote_handler=dbgp\n" \
+          xdebug.remote_host=172.18.0.1\n" \
+          xdebug.remote_port=9000\n" \
+          xdebug.remote_autostart=0\n" \
+          xdebug.remote_connect_back=1\n" \
           xdebug.profiler_output_dir = '/var/www/shopware/vendor/shopware/shopware/build/artifacts" >> /usr/local/etc/php/conf.d/xdebug.ini
 RUN a2enmod rewrite
 
