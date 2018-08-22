@@ -32,7 +32,6 @@ RUN apt-get update -qq && apt-get install -y -qq \
         graphviz \
         netcat-openbsd \
         ant \
-        libmemcached-dev \
         libmagickwand-dev \
         imagemagick \
         libicu-dev
@@ -53,8 +52,8 @@ RUN pecl install mcrypt-1.0.1
 RUN pecl install apcu
 RUN echo "extension=apcu.so" > /usr/local/etc/php/conf.d/apcu.ini
 
-RUN pecl install memcached
-RUN echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini
+#RUN pecl install memcached
+#RUN echo "extension=memcached.so" > /usr/local/etc/php/conf.d/memcached.ini
 
 RUN pecl install imagick
 RUN echo "extension=imagick.so" > /usr/local/etc/php/conf.d/imagick.ini
@@ -90,9 +89,8 @@ RUN set -eux; \
 		echo 'xdebug.profiler_output_dir="/var/www/shopware/vendor/shopware/shopware/build/artifacts"'; \
 	} > /usr/local/etc/php/conf.d/xdebug.ini
 
-RUN a2enmod rewrite
-
-# Restart Apache
+# Apache + PHP requires preforking Apache for best results
+RUN a2enmod rewrite && a2dismod mpm_event && a2enmod mpm_prefork
 RUN service apache2 restart
 
 RUN echo "alias ll='ls -ahl'" >> /etc/bash.bashrc
