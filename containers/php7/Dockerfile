@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7-apache
 
 MAINTAINER Rindevich version: 0.1
 
@@ -78,13 +78,21 @@ RUN pecl install redis \
 RUN npm install -g grunt-cli bower grunt jasmine
 
 RUN echo "date.timezone=Europe/Berlin" >> /usr/local/etc/php/conf.d/timezone.ini
-RUN echo "xdebug.remote_enable=1\n
-xdebug.remote_handler=dbgp\n
-xdebug.remote_host=172.18.0.1\n
-xdebug.remote_port=9000\n
-xdebug.remote_autostart=0\n
-xdebug.remote_connect_back=1\n
-xdebug.profiler_output_dir='/var/www/shopware/vendor/shopware/shopware/build/artifacts'" >> /usr/local/etc/php/conf.d/xdebug.ini
+
+
+
+
+RUN set -eux; \
+	{ \
+		echo 'xdebug.remote_enable=1'; \
+		echo 'xdebug.remote_handler=dbgp'; \
+		echo 'xdebug.remote_host=172.18.0.1'; \
+		echo 'xdebug.remote_port=9000'; \
+		echo 'xdebug.remote_autostart=0'; \
+		echo 'xdebug.remote_connect_back=1'; \
+		echo 'xdebug.profiler_output_dir="/var/www/shopware/vendor/shopware/shopware/build/artifacts"'; \
+	} > /usr/local/etc/php/conf.d/xdebug.ini
+
 RUN a2enmod rewrite
 
 # Restart Apache
