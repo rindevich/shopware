@@ -41,8 +41,6 @@ services:
   shopware_redis:
     container_name: sw-redis
     image: webhippie/redis:latest
-    environment:
-      MEMCACHED_CACHE_SIZE: 2024
     ports:
       - 6379:6379
     networks:
