@@ -6,8 +6,8 @@
 $ ssh git@github.com:rindevich/shopware.git shopware && cd shopware
 ```
 2. Use composer for create your new Shopware Project:
-```bash
-composer create-project shopware/composer-project shopware --no-interaction --stability=dev
+```
+$ composer create-project shopware/composer-project shopware --no-interaction --stability=dev
 ```
 [Composer Shopware Project](https://github.com/shopware/composer-project)
 
@@ -26,11 +26,11 @@ $ ./app/install.sh
 ```
 'session' => array(
     'save_handler' => 'redis',
-    'save_path' => "tcp://127.0.0.1:6379",
+    'save_path' => "tcp://redis:6379",
 ),
 'backendsession' => array(
     'save_handler' => 'redis',
-    'save_path' => "tcp://127.0.0.1:6379",
+    'save_path' => "tcp://redis:6379",
 ),
 ```
 6. Add to your local hosts `127.0.0.1 shopware.local`
@@ -42,4 +42,16 @@ $ sudo nano /etc/hosts
 ### Extra feature:
 [Install Shopware profiler](https://github.com/FriendsOfShopware/FroshProfiler)
 
+### Upgrading Shopware
+* Update the version number of shopware/shopware in the composer.json, e.g. from 5.4.0 to 5.4.1 after this version has been released:
+```
+"require": {
+        "shopware/shopware": "5.4.1",
+        ...
+```
+Then run `$ composer update shopware/shopware` to have Composer update the installed version of Shopware to the new version. 
+* Or
+```
+$ composer require  shopware/shopware:5.5.x-dev --update-with-dependencies
+```
 #### Maintained by: [ETECTURE GbmH](https://www.etecture.de)
