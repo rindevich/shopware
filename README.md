@@ -18,11 +18,11 @@ $ docker-compose up -d
 4. Login to container, and install Shopware.
 > Credantials you can find in .env root folder
 ```
-$ docker exec -it sw_server_1 bash
+$ docker exec -it sw-server bash
 $ composer install
 $ ./app/install.sh
 ```
-5. Add Redis configuration to app/congif/config.php
+5. Add Redis configuration to app/cocongif/config.php
 ```
 'session' => array(
     'save_handler' => 'redis',
