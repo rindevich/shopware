@@ -15,13 +15,13 @@ composer create-project shopware/composer-project shopware --no-interaction --st
 ```
 $ docker-compose up -d
 ```
-4. Login to container, and install Shopware
+4. Login to container, and install Shopware.
+> Credantials you can find in .env root folder
 ```
 $ docker exec -it sw_server_1 bash
 $ composer install
 $ ./app/install.sh
 ```
-(Credantials you can find in .env in root folder)
 5. Add Redis configuration, add this to app/congif/config.php
 ```
 'session' => array(
@@ -33,7 +33,13 @@ $ ./app/install.sh
     'save_path' => "tcp://127.0.0.1:6379",
 ),
 ```
-6. Login to backend and clear all caches
+6. Add to your local hosts `127.0.0.1 shopware.local`
+```
+$ sudo nano /etc/hosts
+```
+7. [Login to backend](http://shopware.local/backend) and clear all caches
 
 ### Extra feature:
 [Install Shopware profiler](https://github.com/FriendsOfShopware/FroshProfiler)
+
+####Maintained by: [ETECTURE GbmH](https://www.etecture.de)
