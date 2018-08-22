@@ -22,7 +22,7 @@ $ docker exec -it sw_server_1 bash
 $ composer install
 $ ./app/install.sh
 ```
-5. Add Redis configuration, add this to app/congif/config.php
+5. Add Redis configuration to app/congif/config.php
 ```
 'session' => array(
     'save_handler' => 'redis',
@@ -42,4 +42,4 @@ $ sudo nano /etc/hosts
 ### Extra feature:
 [Install Shopware profiler](https://github.com/FriendsOfShopware/FroshProfiler)
 
-####Maintained by: [ETECTURE GbmH](https://www.etecture.de)
+#### Maintained by: [ETECTURE GbmH](https://www.etecture.de)
