@@ -79,9 +79,6 @@ RUN npm install -g grunt-cli bower grunt jasmine
 
 RUN echo "date.timezone=Europe/Berlin" >> /usr/local/etc/php/conf.d/timezone.ini
 
-
-
-
 RUN set -eux; \
 	{ \
 		echo 'xdebug.remote_enable=1'; \
