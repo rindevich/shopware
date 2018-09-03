@@ -6,5 +6,3 @@ RUN apt-get update \
      mc \
      htop \
      nano
-
-WORKDIR /var/lib/mysql
