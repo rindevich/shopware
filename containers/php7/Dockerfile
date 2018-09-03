@@ -15,7 +15,6 @@ RUN apt-get update -qq && apt-get install -y -qq \
         libcurl4-openssl-dev \
         software-properties-common  \
         libcurl3 curl \
-        git \
         zip \
         unzip \
         inotify-tools \

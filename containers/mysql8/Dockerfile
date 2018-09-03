@@ -4,6 +4,7 @@ RUN apt-get update \
   && apt-get upgrade -y \
   && apt-get install --no-install-recommends -y \
      mc \
-     htop
+     htop \
+     nano \
 
 WORKDIR /var/lib/mysql
