@@ -8,15 +8,16 @@ services:
       - ./db:/home/db:cached
     ports:
       - "3366:3306"
+    command:
+     - "--innodb-buffer-pool-size=3G"
+     - "--innodb_log_buffer_size=128M"
+     - "--innodb_log_file_size=128M"
+     - "--max_allowed_packet=128M"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: app
       MYSQL_PASSWORD: app
       MYSQL_DATABASE: shopware
-      MYSQL_INNODB_BUFFER_POOL_SIZE: "3G"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_GENERAL_LOG: 0
-      MYSQL_QUERY_CACHE_SIZE: 64M
     networks:
       - internal
 

@@ -1,4 +1,5 @@
 # Docker Containers for fast Shopware
+Apache 2.4 | PHP 7.2 | Redis | MySQL 8
 ### Instruction for usage
 
 1. Clone the repository to your local machine
