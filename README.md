@@ -1,5 +1,5 @@
 # Docker Containers for fast Shopware
-Apache 2.4 | PHP 7.2 | Redis | MySQL 8
+Apache 2.4 | PHP 7.0 | Elastic Search | Redis | MariaDB 10.1 
 ### Instruction for usage
 
 1. Clone the repository to your local machine
@@ -43,16 +43,4 @@ $ sudo nano /etc/hosts
 ### Extra feature:
 [Install Shopware profiler](https://github.com/FriendsOfShopware/FroshProfiler)
 
-### Upgrading Shopware
-* Update the version number of shopware/shopware in the composer.json, e.g. from 5.4.0 to 5.4.1 after this version has been released:
-```
-"require": {
-        "shopware/shopware": "5.4.1",
-        ...
-```
-Then run `$ composer update shopware/shopware` to have Composer update the installed version of Shopware to the new version. 
-* Or
-```
-$ composer require  shopware/shopware:5.5.x-dev --update-with-dependencies
-```
 #### Maintained by: [ETECTURE GbmH](https://www.etecture.de)
