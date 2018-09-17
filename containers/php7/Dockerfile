@@ -45,6 +45,7 @@ RUN docker-php-ext-install iconv opcache \
     && docker-php-ext-install zip \
     && docker-php-ext-install curl \
     && docker-php-ext-install intl \
+    && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql
 
 RUN { \
@@ -56,8 +57,17 @@ RUN { \
         echo 'opcache.enable_cli=1'; \
     } > /usr/local/etc/php/conf.d/opcache-recommended.ini
 
+RUN { \
+        echo 'phar.readonly = 0'; \
+        echo 'short_open_tag = Off'; \
+        echo 'max_execution_time = 0'; \
+        echo 'memory_limit = 512M'; \
+        echo 'upload_max_filesize = 100M'; \
+        echo 'post_max_size = 100M'; \
+    } > /usr/local/etc/php/conf.d/php-config.ini
+
 RUN set -xe; \
-    if [[ "${PHP_VER}" == "7.2" ]]; then \
+    if [ "${PHP_VER}" = "7.2" ]; then \
         pecl install mcrypt-1.0.1; \
         docker-php-ext-enable mcrypt; \
     else \
@@ -96,15 +106,14 @@ RUN set -eux; \
 		echo 'xdebug.profiler_output_dir="/var/www/shopware/vendor/shopware/shopware/build/artifacts"'; \
 	} > /usr/local/etc/php/conf.d/xdebug.ini
 
-
 RUN a2enmod rewrite && a2dismod mpm_event && a2enmod mpm_prefork
 RUN service apache2 restart
 
 RUN echo "alias ll='ls -ahl'" >> /etc/bash.bashrc
 
-WORKDIR /var/www/shopware
-
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php composer-setup.php --install-dir=/usr/local/bin/ --filename=composer
 RUN php -r "unlink('composer-setup.php');"
+
+WORKDIR /var/www/shopware
