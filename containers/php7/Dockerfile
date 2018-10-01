@@ -103,6 +103,7 @@ RUN set -eux; \
 		echo 'xdebug.remote_port=9000'; \
 		echo 'xdebug.remote_autostart=0'; \
 		echo 'xdebug.remote_connect_back=1'; \
+		echo 'xdebug.max_nesting_level=500'; \
 		echo 'xdebug.profiler_output_dir="/var/www/shopware/vendor/shopware/shopware/build/artifacts"'; \
 	} > /usr/local/etc/php/conf.d/xdebug.ini
 
